@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>Inside My Halloween Card</title>
-<link rel="icon" type="image/png" href="logo.jpg">
+    <link rel="icon" type="image/png" href="logo.jpg">
+
     <style>
         body {
             background-color: #171022;
@@ -59,6 +60,13 @@
         }
 
         audio {
+            margin: 10px;
+        }
+
+        video {
+            width: 400px;
+            border: 5px solid orange;
+            border-radius: 10px;
             margin: 10px;
         }
 
@@ -122,15 +130,61 @@
         <source src="hallwnmusic.mp3" type="audio/mpeg">
     </audio>
 
+    <h2>Halloween Videos</h2>
+
+    <video controls>
+        <source src="skelyvid.mp4" type="video/mp4">
+    </video>
+
+    <video controls>
+        <source src="pumpvid.mp4" type="video/mp4">
+    </video>
+
     <br><br>
 
-    <button onclick="alert('Have a happy Halloween')">
+    <button onclick="confetti()">
         Click Me
     </button>
 
     <br><br>
 
     <a class="button" href="index.html">Back to Front</a>
+
+    <script>
+        function confetti() {
+            for (let i = 0; i < 100; i++) {
+                let piece = document.createElement("div");
+
+                piece.style.position = "fixed";
+                piece.style.width = "10px";
+                piece.style.height = "10px";
+
+                piece.style.backgroundColor =
+                    ["orange", "purple", "yellow", "red", "blue"]
+                    [Math.floor(Math.random() * 5)];
+
+                piece.style.left = Math.random() * 100 + "vw";
+                piece.style.top = "-10px";
+                piece.style.zIndex = "9999";
+
+                document.body.appendChild(piece);
+
+                let fall = piece.animate([
+                    {
+                        transform: "translateY(0) rotate(0deg)"
+                    },
+                    {
+                        transform: "translateY(100vh) rotate(720deg)"
+                    }
+                ], {
+                    duration: 2000 + Math.random() * 2000,
+                    easing: "linear"
+                });
+
+                fall.onfinish = () => piece.remove();
+            }
+        }
+    </script>
 
 </body>
 </html>
